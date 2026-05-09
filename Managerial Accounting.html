@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Managerial Accounting · A Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #ffffff;
+    --paper-dark: #f4f1ea;
+    --ink: #1a1814;
+    --ink-soft: #4a463d;
+    --ink-faded: #8a8478;
+    --accent: #b04a2c;
+    --accent-soft: #e8b8a8;
+    --gold: #a37c2c;
+    --green: #4a6c3e;
+    --red: #a83232;
+    --rule: #d4cdb8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: 'Fraunces', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+    font-size: 17px;
+    overflow-x: hidden;
+  }
+
+  .container { max-width: 980px; margin: 0 auto; padding: 0 32px; }
+
+  /* SCROLL PROGRESS BAR */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: var(--accent);
+    z-index: 1000;
+    transition: width 0.1s ease-out;
+    width: 0%;
+  }
+
+  /* HEADER */
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding: 56px 0 24px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .masthead::after {
+    content: '';
+    position: absolute;
+    bottom: -6px; left: 0; right: 0;
+    height: 1px;
+    background: var(--ink);
+  }
+  .masthead-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(40px, 8vw, 92px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 144, "SOFT" 50;
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+  .title em {
+    font-weight: 600;
+    font-style: normal;
+    color: var(--accent);
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+  }
+  .subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--ink-soft);
+    max-width: 580px;
+    margin-bottom: 8px;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  .author-line {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin-top: 24px;
+  }
+
+  /* PROLOGUE */
+  .prologue {
+    padding: 48px 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+  }
+  .prologue-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    padding-top: 8px;
+  }
+  .prologue-text {
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .prologue-text p + p { margin-top: 18px; }
+  .prologue-text strong { color: var(--ink); font-weight: 600; }
+
+  /* TABLE OF CONTENTS */
+  .toc {
+    padding: 56px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin-bottom: 28px;
+  }
+  .toc-list {
+    list-style: none;
+    counter-reset: toc-counter;
+  }
+  .toc-item {
+    counter-increment: toc-counter;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--rule);
+    display: grid;
+    grid-template-columns: 60px 1fr auto auto;
+    gap: 24px;
+    align-items: baseline;
+    transition: background 0.2s ease, padding-left 0.2s ease;
+  }
+  .toc-item:hover {
+    background: rgba(176, 74, 44, 0.04);
+    padding-left: 12px;
+  }
+  .toc-item a {
+    color: inherit;
+    text-decoration: none;
+    display: contents;
+  }
+  .toc-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-faded);
+  }
+  .toc-num::before { content: counter(toc-counter, decimal-leading-zero); }
+  .toc-title {
+    font-size: 22px;
+    font-weight: 500;
+    font-variation-settings: "opsz" 36;
+  }
+  .toc-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    padding: 4px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+  }
+  .toc-tag.high { color: var(--accent); border-color: var(--accent-soft); }
+  .toc-pages {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-faded);
+  }
+
+  /* CHAPTER */
+  .chapter {
+    padding: 80px 0 64px;
+    border-bottom: 1px solid var(--rule);
+    scroll-margin-top: 24px;
+  }
+  .chapter-header {
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    align-items: end;
+  }
+  .chapter-num-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+  }
+  .chapter-num-big {
+    font-family: 'Fraunces', serif;
+    font-size: 96px;
+    line-height: 1;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--accent);
+    margin-top: 8px;
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+  }
+  .chapter-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 5vw, 40px);
+    line-height: 1.05;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+    font-variation-settings: "opsz" 72;
+  }
+  .chapter-deck {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    max-width: 540px;
+  }
+
+  .chapter-body { display: grid; grid-template-columns: 200px 1fr; gap: 48px; }
+  .chapter-body > div:last-child { min-width: 0; }
+
+  .body-content > * + * { margin-top: 28px; }
+
+  .lede {
+    font-size: 22px;
+    line-height: 1.5;
+    font-weight: 400;
+    color: var(--ink);
+    border-left: 2px solid var(--accent);
+    padding-left: 22px;
+    font-style: italic;
+    font-variation-settings: "opsz" 36;
+  }
+
+  .h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 40px;
+    margin-bottom: 12px;
+    font-variation-settings: "opsz" 36;
+  }
+  .h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin-top: 24px;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  p { font-size: 17px; line-height: 1.6; color: var(--ink-soft); }
+  p strong { color: var(--ink); font-weight: 600; }
+  p em { color: var(--ink); font-style: italic; }
+
+  /* FORMULA CARD */
+  .formula {
+    background: var(--paper-dark);
+    border-left: 3px solid var(--ink);
+    padding: 20px 24px;
+    margin: 16px 0;
+    position: relative;
+    overflow-x: auto;
+  }
+  .formula-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin-bottom: 8px;
+  }
+  .formula-eq {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: normal;
+  }
+
+  /* RULES */
+  .rule-box {
+    background: rgba(176, 74, 44, 0.06);
+    border: 1px solid var(--accent-soft);
+    padding: 18px 22px;
+    margin: 16px 0;
+    border-radius: 2px;
+  }
+  .rule-box .rule-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .rule-box p {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    color: var(--ink);
+    font-style: italic;
+    margin: 0;
+  }
+
+  .trap {
+    background: #f4ebe1;
+    border: 1px solid #d4a890;
+    padding: 18px 22px;
+    margin: 16px 0;
+  }
+  .trap .rule-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .trap p { font-size: 15px; color: var(--ink); margin: 0; }
+
+  /* TABLES */
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 20px 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    min-width: 480px;
+  }
+  th, td {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    font-weight: 500;
+    border-bottom: 1px solid var(--ink);
+    white-space: nowrap;
+  }
+  td { color: var(--ink-soft); }
+  td strong { color: var(--ink); }
+
+  /* DECISION GRID */
+  .decision-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .decision-card {
+    background: var(--paper-dark);
+    padding: 20px 22px;
+    border-radius: 2px;
+    border-top: 2px solid var(--ink);
+  }
+  .decision-card-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin-bottom: 6px;
+  }
+  .decision-card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .decision-card p { font-size: 14px; line-height: 1.5; }
+
+  /* SIDEBAR */
+  .sidebar {
+    border-top: 1px solid var(--ink);
+    padding-top: 16px;
+    position: sticky;
+    top: 24px;
+    align-self: start;
+  }
+  .sidebar-section + .sidebar-section { margin-top: 24px; }
+  .sidebar-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin-bottom: 10px;
+  }
+  .sidebar-content {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  /* PULL QUOTE */
+  .pullquote {
+    margin: 32px 0;
+    padding: 24px 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    text-align: center;
+  }
+  .pullquote-text {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(18px, 3vw, 26px);
+    line-height: 1.3;
+    font-style: italic;
+    color: var(--ink);
+    font-weight: 400;
+    font-variation-settings: "opsz" 72;
+  }
+  .pullquote-attr {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin-top: 12px;
+  }
+
+  /* FOOTER */
+  .colophon {
+    padding: 64px 0 80px;
+    text-align: center;
+  }
+  .colophon-rule {
+    width: 60px;
+    height: 1px;
+    background: var(--ink-faded);
+    margin: 0 auto 24px;
+  }
+  .colophon p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin-bottom: 8px;
+  }
+  .colophon .signature {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink);
+    margin-top: 16px;
+    font-variation-settings: "opsz" 36, "SOFT" 100;
+  }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+  .reveal-stagger.visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
+  .reveal-stagger.visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.10s; }
+  .reveal-stagger.visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
+  .reveal-stagger.visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.20s; }
+  .reveal-stagger.visible > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.25s; }
+  .reveal-stagger.visible > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.30s; }
+  .reveal-stagger.visible > *:nth-child(7) { opacity: 1; transform: translateY(0); transition-delay: 0.35s; }
+  .reveal-stagger.visible > *:nth-child(8) { opacity: 1; transform: translateY(0); transition-delay: 0.40s; }
+  .reveal-stagger.visible > *:nth-child(9) { opacity: 1; transform: translateY(0); transition-delay: 0.45s; }
+  .reveal-stagger.visible > *:nth-child(10) { opacity: 1; transform: translateY(0); transition-delay: 0.50s; }
+  .reveal-stagger.visible > *:nth-child(n+11) { opacity: 1; transform: translateY(0); transition-delay: 0.55s; }
+
+  /* Initial fade for the masthead */
+  .masthead-meta, .title, .subtitle, .author-line {
+    animation: fadeUp 0.8s ease-out backwards;
+  }
+  .masthead-meta { animation-delay: 0.1s; }
+  .title { animation-delay: 0.2s; }
+  .subtitle { animation-delay: 0.4s; }
+  .author-line { animation-delay: 0.5s; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* MOBILE — under 760px */
+  @media (max-width: 760px) {
+    body { font-size: 16px; }
+    .container { padding: 0 18px; }
+    .progress-bar { height: 3px; }
+    .masthead { padding: 32px 0 16px; }
+    .masthead-meta { font-size: 10px; gap: 4px; }
+    .masthead-meta span:nth-child(2) { display: none; }
+    .author-line { font-size: 10px; }
+    .prologue, .chapter-body, .chapter-header {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      padding-top: 32px;
+      padding-bottom: 32px;
+    }
+    .prologue { padding: 32px 0; }
+    .prologue-text { font-size: 17px; }
+    .prologue-label, .chapter-num-label { font-size: 10px; }
+    .sidebar {
+      position: static;
+      padding-top: 12px;
+      border-top: 1px solid var(--rule);
+    }
+    .chapter { padding: 48px 0 32px; }
+    .chapter-header { margin-bottom: 24px; }
+    .chapter-num-big { font-size: 56px; margin-top: 0; }
+    .chapter-deck { font-size: 13px; }
+    .lede { font-size: 18px; padding-left: 16px; }
+    .h3 { font-size: 20px; margin-top: 32px; }
+    .toc { padding: 32px 0; }
+    .toc-item {
+      grid-template-columns: 32px 1fr;
+      gap: 12px;
+      padding: 12px 0;
+    }
+    .toc-item:hover { padding-left: 0; }
+    .toc-tag, .toc-pages { display: none; }
+    .toc-title { font-size: 18px; }
+    .decision-grid { grid-template-columns: 1fr; }
+    .formula { padding: 14px 16px; }
+    .formula-eq { font-size: 13px; }
+    .rule-box, .trap { padding: 14px 16px; }
+    .pullquote { padding: 18px 0; margin: 24px 0; }
+    th, td { padding: 10px 8px; font-size: 13px; }
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .reveal-stagger > * {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    .masthead-meta, .title, .subtitle, .author-line {
+      animation: none !important;
+    }
+    html { scroll-behavior: auto; }
+  }
+
+  /* Print */
+  @media print {
+    .progress-bar { display: none; }
+    .chapter { break-before: page; padding: 32px 0; }
+    .sidebar { position: static; }
+    .reveal, .reveal-stagger > * { opacity: 1 !important; transform: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<div class="container">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-meta">
+      <span>Vol. I · No. 1</span>
+      <span>Personal Reference</span>
+      <span>Spring 2026</span>
+    </div>
+    <h1 class="title">Managerial<br>Accounting<em>—</em> a reference.</h1>
+    <p class="subtitle">A condensed reference for one semester of managerial accounting. Not the textbook version. The version that points at what you'll actually reach for after the class is over.</p>
+    <div class="author-line">Compiled for personal use · ACCT 2362</div>
+  </header>
+
+  <!-- PROLOGUE -->
+  <section class="prologue reveal">
+    <div class="prologue-label">Prologue</div>
+    <div class="prologue-text">
+      <p>I made this so I wouldn't forget.</p>
+      <p>The textbook tells you what managerial accounting is. It doesn't tell you which parts come back later, in a job interview or a meeting where someone wants to know if a number on a slide is real. So I sorted the chapters by how often each concept seems to show up outside school and wrote them in plain language.</p>
+      <p>One thing that surprised me by the end: most of these chapters are the same income statement, rearranged. CVP, variable costing, differential analysis, flexible budgets all start from the same place. Once I noticed that, the class stopped feeling like a stack of disconnected topics.</p>
+      <p>The chapters labeled <span style="color: var(--accent); font-weight: 600;">High Utility</span> are the ones I'd revisit first if I had to pick.</p>
+    </div>
+  </section>
+
+  <!-- TABLE OF CONTENTS -->
+  <section class="toc reveal">
+    <div class="section-label">Contents</div>
+    <ol class="toc-list reveal-stagger">
+      <li class="toc-item"><a href="#ch1"><span class="toc-num"></span><span class="toc-title">Cost Concepts</span><span class="toc-tag high">High Utility</span><span class="toc-pages">Foundation</span></a></li>
+      <li class="toc-item"><a href="#ch5"><span class="toc-num"></span><span class="toc-title">Cost-Volume-Profit</span><span class="toc-tag high">High Utility</span><span class="toc-pages">The lever</span></a></li>
+      <li class="toc-item"><a href="#ch13"><span class="toc-num"></span><span class="toc-title">Differential Analysis</span><span class="toc-tag high">High Utility</span><span class="toc-pages">Decisions</span></a></li>
+      <li class="toc-item"><a href="#ch14"><span class="toc-num"></span><span class="toc-title">Capital Budgeting</span><span class="toc-tag high">High Utility</span><span class="toc-pages">Big bets</span></a></li>
+      <li class="toc-item"><a href="#ch11"><span class="toc-num"></span><span class="toc-title">ROI &amp; Responsibility</span><span class="toc-tag high">High Utility</span><span class="toc-pages">Performance</span></a></li>
+      <li class="toc-item"><a href="#ch9"><span class="toc-num"></span><span class="toc-title">Flexible Budgets &amp; Variances</span><span class="toc-tag">Reference</span><span class="toc-pages">Reviews</span></a></li>
+      <li class="toc-item"><a href="#ch10"><span class="toc-num"></span><span class="toc-title">Standard Costs</span><span class="toc-tag">Reference</span><span class="toc-pages">Manufacturing</span></a></li>
+      <li class="toc-item"><a href="#ch8"><span class="toc-num"></span><span class="toc-title">Master Budgeting</span><span class="toc-tag">Reference</span><span class="toc-pages">Planning</span></a></li>
+      <li class="toc-item"><a href="#ch6"><span class="toc-num"></span><span class="toc-title">Variable vs Absorption</span><span class="toc-tag">Specialist</span><span class="toc-pages">Reporting</span></a></li>
+      <li class="toc-item"><a href="#ch23"><span class="toc-num"></span><span class="toc-title">Job-Order Costing</span><span class="toc-tag">Specialist</span><span class="toc-pages">Manufacturing</span></a></li>
+      <li class="toc-item"><a href="#ethics"><span class="toc-num"></span><span class="toc-title">IMA Ethics</span><span class="toc-tag">Reference</span><span class="toc-pages">Standards</span></a></li>
+    </ol>
+  </section>
+
+  <!-- CH 1: COST CONCEPTS -->
+  <article class="chapter reveal" id="ch1">
+    <div class="chapter-header">
+      <div>
+        <div class="chapter-num-label">Chapter</div>
+        <div class="chapter-num-big">01</div>
+      </div>
+      <div>
+        <h2 class="chapter-title">Cost concepts</h2>
+        <p class="chapter-deck">The vocabulary the rest of the class is built on. Classify a cost three different ways and most of what comes after gets easier.</p>
+      </div>
+    </div>
+
+    <div class="chapter-body">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">In Practice</div>
+          <div class="sidebar-content">"Is this fixed or variable?" comes up in pricing, hiring, layoffs, scaling decisions. It's the most-used question from this entire class.</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-label">Watch For</div>
+          <div class="sidebar-content">The word <strong>factory</strong>. It decides whether a cost is product or period.</div>
+        </div>
+      </aside>
+
+      <div class="body-content">
+        <p class="lede">Same cost, three different labels. None of them wrong. Each useful for a different question.</p>
+
+        <h3 class="h3">Three classifications</h3>
+
+        <h4 class="h4">By function in production</h4>
+        <div class="table-wrap">
+        <table>
+          <tr><th>Direct Materials (DM)</th><td>Raw materials traceable to the product. Lumber in a table, steel in a car.</td></tr>
+          <tr><th>Direct Labor (DL)</th><td>Wages of workers physically building the product.</td></tr>
+          <tr><th>Manufacturing Overhead (MOH)</th><td>Every other factory cost. Rent, utilities, supervisor salary, glue, the janitor.</td></tr>
+        </table>
+        </div>
+
+        <h4 class="h4">By timing on the income statement</h4>
+        <div class="table-wrap">
+        <table>
+          <tr><th>Product Costs</th><td>DM + DL + MOH. Sit in inventory until the product sells, then become COGS.</td></tr>
+          <tr><th>Period Costs</th><td>Selling, admin, executive salaries, advertising. Hit the income statement immediately.</td></tr>
+        </table>
+        </div>
+
+        <h4 class="h4">By behavior with volume</h4>
+        <div class="table-wrap">
+        <table>
+          <tr><th></th><th>Total</th><th>Per Unit</th></tr>
+          <tr><td><strong>Variable</strong></td><td>Changes with volume</td><td>Stays the same</td></tr>
+          <tr><td><strong>Fixed</strong></td><td>Stays the same</td><td>Drops as volume rises</td></tr>
+          <tr><td><strong>Mixed</strong></td><td colspan="2">Has both. Usually written as <code style="font-family: 'JetBrains Mono', monospace; background: var(--paper-dark); padding: 2px 6px; border-radius: 2px;">y = mx + b</code></td></tr>
+        </table>
+        </div>
+
+        <div class="rule-box">
+          <div class="rule-label">The rule that fixes most classification errors</div>
+          <p>If a cost happens at the factory and isn't DM or DL, it's MOH. Sales offices, corporate HQ, delivery trucks: period costs.</p>
+        </div>
+
+        <h3 class="h3">Two combined terms</h3>
+        <div class="decision-grid">
+          <div class="decision-card">
+            <div class="decision-card-label">Prime Cost</div>
+            <div class="decision-card-title">DM + DL</div>
+            <p>The most directly traceable production cost. The "prime ingredients and people" view.</p>
+          </div>
+          <div class="decision-card">
+            <div class="decision-card-label">Conversion Cost</div>
+            <div class="decision-card-title">DL + MOH</div>
+            <p>What it takes to convert raw materials into finished goods. Direct labor sits in both. It's the only line item that does.</p>
+          </div>
+        </div>
+
+        <div class="trap">
+          <div class="rule-label">Common trap</div>
+          <p><strong>Variable cost per unit is constant.</strong> Variable cost <em>in total</em> grows with volume. The total grows because every new unit eats the same per-unit amount.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- CH 5: CVP -->
+  <article class="chapter reveal" id="ch5">
+    <div class="chapter-header">
+      <div>
+        <div class="chapter-num-label">Chapter</div>
+        <div class="chapter-num-big">05</div>
+      </div>
+      <div>
+        <h2 class="chapter-title">Cost-volume-profit</h2>
+        <p class="chapter-deck">Probably the most reused tool from this class. Break-even, target profit, pricing math. Anything that asks "what happens to profit when volume changes?" lives here.</p>
+      </div>
+    </div>
+
+    <div class="chapter-body">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">In Practice</div>
+          <div class="sidebar-content">Startups use this to set runway. Restaurants use it to price menus. SaaS companies use it for free-trial conversion math.</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-label">Quick Check</div>
+          <div class="sidebar-content">Want answer in <strong>units</strong>? Use CM per unit. Want answer in <strong>dollars</strong>? Use CM ratio. Mismatch produces nonsense.</div>
+        </div>
+      </aside>
+
+      <div class="body-content">
+        <p class="lede">CVP is one rearrangement of the income statement. Once you put it in contribution margin form, every CVP question is a small algebra problem.</p>
+
+        <h3 class="h3">The contribution margin format</h3>
+        <p>Take a regular income statement and reorganize so all variable costs come out first. What's left is the contribution margin: dollars that go toward covering fixed costs and generating profit.</p>
+
+        <div class="formula">
+          <div class="formula-label">Income statement, rearranged</div>
+          <div class="formula-eq">Sales − Variable Costs = Contribution Margin
+Contribution Margin − Fixed Costs = Operating Income</div>
+        </div>
+
+        <h3 class="h3">The four formulas</h3>
+
+        <div class="formula">
+          <div class="formula-label">Contribution margin</div>
+          <div class="formula-eq">CM per unit = SP − VC per unit
+CM Ratio = CM ÷ Sales</div>
+        </div>
+
+        <div class="formula">
+          <div class="formula-label">Break-even</div>
+          <div class="formula-eq">Units = Fixed Costs ÷ CM per unit
+Dollars = Fixed Costs ÷ CM Ratio</div>
+        </div>
+
+        <div class="formula">
+          <div class="formula-label">Target profit (add target to numerator)</div>
+          <div class="formula-eq">Units = (Fixed Costs + Target Profit) ÷ CM per unit
+Dollars = (Fixed Costs + Target Profit) ÷ CM Ratio</div>
+        </div>
+
+        <div class="formula">
+          <div class="formula-label">Margin of safety</div>
+          <div class="formula-eq">MOS = Actual Sales − Break-even Sales</div>
+        </div>
+
+        <div class="rule-box">
+          <div class="rule-label">The mental model</div>
+          <p>Each unit sold contributes CM toward covering fixed costs. Once fixed costs are covered, every additional CM dollar is profit.</p>
+        </div>
+
+        <h3 class="h3">Regression for cost behavior</h3>
+        <p>When utility or maintenance costs don't fit cleanly as fixed or variable, regression splits them. Output looks like <code style="font-family: 'JetBrains Mono', monospace; background: var(--paper-dark); padding: 2px 6px; border-radius: 2px;">y = 1.92x + 675</code>. Intercept is fixed cost. Slope is variable cost per unit of activity.</p>
+
+        <div class="table-wrap">
+        <table>
+          <tr><th>R² Value</th><th>Read as</th></tr>
+          <tr><td>0.85 to 1.00</td><td><strong>Strong.</strong> Model is a reliable predictor.</td></tr>
+          <tr><td>0.50 to 0.85</td><td>Moderate. Some predictive power.</td></tr>
+          <tr><td>Below 0.50</td><td>Weak. Don't trust the model alone.</td></tr>
+        </table>
+        </div>
+
+        <p>Exam-ready phrasing: "R² of 0.857 means 85.7% of the variation in cost is explained by the activity driver."</p>
+
+        <div class="pullquote">
+          <div class="pullquote-text">"Margin of safety asks how far above break-even we are. Target profit asks what we need to hit a goal. Different questions, different inputs."</div>
+          <div class="pullquote-attr">A common confusion, neutralized</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- CH 13: DIFFERENTIAL -->
+  <article class="chapter reveal" id="ch13">
+    <div class="chapter-header">
+      <div>
+        <div class="chapter-num-label">Chapter</div>
+        <div class="chapter-num-big">13</div>
+      </div>
+      <div>
+        <h2 class="chapter-title">Differential analysis</h2>
+        <p class="chapter-deck">Five different decisions, one question that solves all of them.</p>
+      </div>
+    </div>
+
+    <div class="chapter-body">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">In Practice</div>
+          <div class="sidebar-content">"Should we keep this product?" "Outsource this team?" "Take this deal?" Differential analyses, even when no one calls them that.</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-label">Always Ignore</div>
+          <div class="sidebar-content">Sunk costs. Unavoidable fixed costs. Allocated common overhead.</div>
+        </div>
+      </aside>
+
+      <div class="body-content">
+        <p class="lede">Every differential analysis comes down to one question: <strong>what changes between the two options?</strong> Whatever changes is relevant. Whatever stays the same isn't.</p>
+
+        <h3 class="h3">What's never relevant</h3>
+        <div class="table-wrap">
+        <table>
+          <tr><th>Sunk costs</th><td>Already spent. The decision can't change them. Recent doesn't mean relevant.</td></tr>
+          <tr><th>Unavoidable fixed costs</th><td>Will happen no matter which option you pick.</td></tr>
+          <tr><th>Allocated common overhead</th><td>Just gets reassigned to other segments if you drop one.</td></tr>
+        </table>
+        </div>
+
+        <h3 class="h3">The five decisions</h3>
+
+        <div class="decision-grid">
+          <div class="decision-card">
+            <div class="decision-card-label">Decision 01</div>
+            <div class="decision-card-title">Drop a segment</div>
+            <p>Compare CM lost against avoidable fixed costs saved. Drop only if savings exceed CM lost.</p>
+          </div>
+          <div class="decision-card">
+            <div class="decision-card-label">Decision 02</div>
+            <div class="decision-card-title">Make or buy</div>
+            <p>Cost to make (DM + DL + VMOH + avoidable FMOH + opportunity cost) versus the supplier's price.</p>
+          </div>
+          <div class="decision-card">
+            <div class="decision-card-label">Decision 03</div>
+            <div class="decision-card-title">Special order</div>
+            <p>Incremental revenue against incremental cost. Fixed costs usually don't matter if there's spare capacity.</p>
+          </div>
+          <div class="decision-card">
+            <div class="decision-card-label">Decision 04</div>
+            <div class="decision-card-title">Constrained resource</div>
+            <p>Rank by CM <em>per unit of the constraint</em>, not per unit of product. Highest wins.</p>
+          </div>
+        </div>
+
+        <div class="formula">
+          <div class="formula-label">Decision 05 — Sell or process further</div>
+          <div class="formula-eq">Process further if: Incremental revenue &gt; Incremental cost
+(Joint costs up to split-off are sunk. Ignore.)</div>
+        </div>
+
+        <div class="trap">
+          <div class="rule-label">The biggest trap in this chapter</div>
+          <p>A segment that shows a net loss is not automatically a candidate to drop. If its CM exceeds its avoidable fixed costs, dropping it makes the company <em>worse off</em>, because the unavoidable allocated costs just move to other segments.</p>
+        </div>
+
+        <div class="rule-box">
+          <div class="rule-label">The framework, condensed</div>
+          <p>Future and differs between options = relevant. Past or unchanged = irrelevant. That sentence solves the chapter.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- CH 14: CAPITAL BUDGETING -->
+  <article class="chapter reveal" id="ch14">
+    <div class="chapter-header">
+      <div>
+        <div class="chapter-num-label">Chapter</div>
+        <div class="chapter-num-big">14</div>
+      </div>
+      <div>
+        <h2 class="chapter-title">Capital budgeting</h2>
+        <p class="chapter-deck">How to evaluate big investments. Shows up in corporate finance, real estate, MBA programs, and the question of whether to buy a house.</p>
+      </div>
+    </div>
+
+    <div class="chapter-body">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">In Practice</div>
+          <div class="sidebar-content">NPV and IRR are two of the most universal tools in business. They show up in finance interviews, MBA programs, real estate, startup valuations.</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-label">Critical Habit</div>
+          <div class="sidebar-content">If a problem says "operating income," <strong>add back depreciation</strong> before doing anything else. All three tools use cash flow, not accounting income.</div>
+        </div>
+      </aside>
+
+      <div class="body-content">
+        <p class="lede">Three tools that ask slightly different questions. They almost always agree on accept or reject.</p>
+
+        <h3 class="h3">The depreciation add-back</h3>
+        <p>Capital budgeting cares about cash, not accounting income. Depreciation reduces operating income but isn't a cash outflow. The cash already left when you bought the equipment. So if a problem hands you operating income, add depreciation back to get net cash flow.</p>
+
+        <div class="formula">
+          <div class="formula-label">Convert accounting income to cash flow</div>
+          <div class="formula-eq">Net Cash Flow = Operating Income + Depreciation</div>
+        </div>
+
+        <h3 class="h3">Tool one — Payback period</h3>
+        <p>How long until the investment pays itself back. Easy to compute. Useful as a quick screen. Ignores cash flows after the payback point and ignores time value of money.</p>
+
+        <div class="formula">
+          <div class="formula-label">Even cash flows</div>
+          <div class="formula-eq">Payback = Initial Investment ÷ Annual Cash Flow</div>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Uneven cash flows</div>
+          <div class="formula-eq">Payback = Full years before recovery + (Unrecovered ÷ Next year's flow)</div>
+        </div>
+
+        <h3 class="h3">Tool two — Net Present Value</h3>
+        <p>Discounts every future cash flow back to today's dollars at the required rate of return. The most reliable single metric. Accept if NPV ≥ 0.</p>
+
+        <div class="formula">
+          <div class="formula-label">NPV with three cash flow types</div>
+          <div class="formula-eq">NPV = PV of inflows − Initial investment
+
+Initial investment → factor 1.000
+Annual cash flows → PV annuity factor
+Salvage / one-time amounts → PV of $1 factor</div>
+        </div>
+
+        <h3 class="h3">Tool three — Internal Rate of Return</h3>
+        <p>The rate at which NPV equals zero. The implied return the project is generating. Accept if IRR ≥ required rate.</p>
+
+        <div class="formula">
+          <div class="formula-label">IRR shortcut for even cash flows</div>
+          <div class="formula-eq">PV Factor = Initial Investment ÷ Annual Cash Flow
+Look up factor in PV annuity table at the project's life
+Read the column header. That's IRR.</div>
+        </div>
+
+        <div class="pullquote">
+          <div class="pullquote-text">IRR &gt; required rate ⇔ NPV &gt; 0.<br>They always agree on accept or reject for a standard project.</div>
+          <div class="pullquote-attr">The Golden Identity</div>
+        </div>
+
+        <div class="table-wrap">
+        <table>
+          <tr><th>Tool</th><th>Strength</th><th>Weakness</th></tr>
+          <tr><td>Payback</td><td>Simple. Screens for liquidity risk.</td><td>Ignores time value. Ignores post-payback cash.</td></tr>
+          <tr><td>NPV</td><td>Most reliable. Accounts for time value.</td><td>Less intuitive than a percentage.</td></tr>
+          <tr><td>IRR</td><td>Easy to communicate as a rate.</td><td>Can mislead with non-standard cash flow patterns.</td></tr>
+        </table>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- CH 11: ROI -->
+  <article class="chapter reveal" id="ch11">
+    <div class="chapter-header">
+      <div>
+        <div class="chapter-num-label">Chapter</div>
+        <div class="chapter-num-big">11</div>
+      </div>
+      <div>
+        <h2 class="chapter-title">ROI &amp; responsibility</h2>
+        <p class="chapter-deck">How decentralized organizations evaluate divisions and managers. The DuPont identity (Margin × Turnover) is one of the most-cited frameworks in finance.</p>
+      </div>
+    </div>
+
+    <div class="chapter-body">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">In Practice</div>
+          <div class="sidebar-content">Public companies report ROI by segment. PE firms evaluate portfolio companies on it. Bonus structures often tie to it.</div>
+        </div>
+      </aside>
+
+      <div class="body-content">
+        <p class="lede">ROI tells you how hard a division's assets are working. Two ways to calculate it. One shows the answer. The other shows the levers.</p>
+
+        <div class="formula">
+          <div class="formula-label">Two equivalent paths to ROI</div>
+          <div class="formula-eq">ROI = NOI ÷ Avg Operating Assets
+ROI = Margin × Turnover
+
+where:
+Margin = NOI ÷ Sales
+Turnover = Sales ÷ Avg Operating Assets</div>
+        </div>
+
+        <h3 class="h3">Three responsibility centers</h3>
+        <div class="table-wrap">
+        <table>
+          <tr><th>Center</th><th>Manager controls</th><th>Example</th></tr>
+          <tr><td><strong>Cost</strong></td><td>Costs only</td><td>Manufacturing plant</td></tr>
+          <tr><td><strong>Profit</strong></td><td>Costs + revenue (no investments)</td><td>Amusement park</td></tr>
+          <tr><td><strong>Investment</strong></td><td>Costs + revenue + capital</td><td>Division VP</td></tr>
+        </table>
+        </div>
+
+        <div class="trap">
+          <div class="rule-label">The ROI gaming problem</div>
+          <p>A division with high ROI may <em>reject</em> a profitable investment because it would lower the division's average ROI, even if the project beats the company's required return. ROI alone can push managers to turn down good projects to protect their scorecard.</p>
+        </div>
+
+        <div class="rule-box">
+          <div class="rule-label">The DuPont insight</div>
+          <p>You can boost ROI by improving margin (charge more or cost less) or by improving turnover (work the same assets harder). Most companies have a clearer path through one than the other.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- CH 9: FLEXIBLE BUDGETS -->
+  <article class="chapter reveal" id="ch9">
+    <div class="chapter-header">
+      <div>
+        <div class="chapter-num-label">Chapter</div>
+        <div class="chapter-num-big">09</div>
+      </div>
+      <div>
+        <h2 class="chapter-title">Flexible budgets &amp; variances</h2>
+        <p class="chapter-deck">A way to evaluate performance fairly. Separates "we sold a different volume than planned" from "we charged or spent the wrong amount per unit."</p>
+      </div>
+    </div>
+
+    <div class="chapter-body">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">In Practice</div>
+          <div class="sidebar-content">Quarterly business reviews. The "why did we miss our number?" conversation is a flexible budget variance, formalized.</div>
+        </div>
+      </aside>
+
+      <div class="body-content">
+        <p class="lede">Comparing actuals to a planning budget isn't fair. Part of the difference is just because volume changed. The flexible budget fixes that by recalculating the budget at the volume that actually happened.</p>
+
+        <h3 class="h3">The three budgets</h3>
+        <div class="table-wrap">
+        <table>
+          <tr><th>Budget</th><th>Volume</th><th>Prices</th><th>Question it answers</th></tr>
+          <tr><td><strong>Planning</strong></td><td>Planned</td><td>Planned</td><td>What we expected</td></tr>
+          <tr><td><strong>Flexible</strong></td><td>Actual</td><td>Planned</td><td>What costs <em>should have been</em> at this volume</td></tr>
+          <tr><td><strong>Actual</strong></td><td>Actual</td><td>Actual</td><td>What really happened</td></tr>
+        </table>
+        </div>
+
+        <div class="formula">
+          <div class="formula-label">Two variances, two stories</div>
+          <div class="formula-eq">Activity Variance = Planning Budget − Flexible Budget
+(impact of volume changing)
+
+Spending/Revenue Variance = Flexible Budget − Actual
+(impact of per-unit prices changing)</div>
+        </div>
+
+        <div class="rule-box">
+          <div class="rule-label">Memory anchor</div>
+          <p><strong>Activity</strong> is what changed because <em>activity</em> (volume) was different.<br><strong>Spending</strong> is what changed because <em>spending</em> per unit was different.</p>
+        </div>
+
+        <p>Fixed costs always have an activity variance of zero. They don't flex with volume. All variance on fixed costs flows through the spending variance.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- CH 10: STANDARD COSTS -->
+  <article class="chapter reveal" id="ch10">
+    <div class="chapter-header">
+      <div>
+        <div class="chapter-num-label">Chapter</div>
+        <div class="chapter-num-big">10</div>
+      </div>
+      <div>
+        <h2 class="chapter-title">Standard costs &amp; variances</h2>
+        <p class="chapter-deck">Four formulas, one skeleton. Each variance asks: what's different from standard, and why?</p>
+      </div>
+    </div>
+
+    <div class="chapter-body">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">In Practice</div>
+          <div class="sidebar-content">Manufacturing controllers live here. Less universal than CVP, but if you ever work in operations or COGS analysis, this is daily vocabulary.</div>
+        </div>
+      </aside>
+
+      <div class="body-content">
+        <p class="lede">Materials and labor each have two possible reasons for missing standard: a different price or rate, or a different quantity. Four variances total. Two questions, two inputs.</p>
+
+        <h3 class="h3">The four formulas</h3>
+        <div class="table-wrap">
+        <table>
+          <tr><th>Variance</th><th>Formula</th><th>Owner</th></tr>
+          <tr><td>Materials Price</td><td>(AP − SP) × AQ purchased</td><td>Purchasing</td></tr>
+          <tr><td>Materials Quantity</td><td>(AQ used − SQ allowed) × SP</td><td>Production</td></tr>
+          <tr><td>Labor Rate</td><td>(AR − SR) × AH</td><td>HR / Hiring</td></tr>
+          <tr><td>Labor Efficiency</td><td>(AH − SH allowed) × SR</td><td>Production supervisor</td></tr>
+        </table>
+        </div>
+
+        <div class="rule-box">
+          <div class="rule-label">The pattern</div>
+          <p>Price and rate variances multiply by <strong>actual</strong> quantity, because the price mistake is made on every real unit. Quantity and efficiency variances multiply by <strong>standard</strong> price, to keep price effects out of a quantity variance.</p>
+        </div>
+
+        <div class="formula">
+          <div class="formula-label">Standard quantity allowed</div>
+          <div class="formula-eq">SQ allowed = Standard per unit × Actual units produced</div>
+        </div>
+
+        <p>The "allowed" piece flexes the standard to actual output. You don't punish production for using less material just because they made fewer units than forecasted.</p>
+
+        <div class="trap">
+          <div class="rule-label">The connected story</div>
+          <p>An unfavorable price variance often <em>causes</em> a favorable quantity variance. Better materials waste less. Don't evaluate either variance in isolation. They often share a single decision.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- CH 8: MASTER BUDGETING -->
+  <article class="chapter reveal" id="ch8">
+    <div class="chapter-header">
+      <div>
+        <div class="chapter-num-label">Chapter</div>
+        <div class="chapter-num-big">08</div>
+      </div>
+      <div>
+        <h2 class="chapter-title">Master budgeting</h2>
+        <p class="chapter-deck">A network of interconnected budgets. Each one's output feeds the next. Sales is always the start.</p>
+      </div>
+    </div>
+
+    <div class="chapter-body">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">In Practice</div>
+          <div class="sidebar-content">Annual planning at every company. The mechanics get automated in spreadsheets, but the logic and the cash-lag tables remain manual.</div>
+        </div>
+      </aside>
+
+      <div class="body-content">
+        <p class="lede">Sales budget. Production budget. Materials budget. Cash budget. Mess up an early one and everything downstream breaks.</p>
+
+        <div class="formula">
+          <div class="formula-label">The one core formula (appears three times)</div>
+          <div class="formula-eq">What you NEED + What you WANT at end − What you HAVE at start = What you must GET</div>
+        </div>
+
+        <h3 class="h3">The chain</h3>
+        <div class="table-wrap">
+        <table>
+          <tr><th>Budget</th><th>Application</th></tr>
+          <tr><td>Production</td><td>Sales + Desired EI − Beginning Inv = Units to produce</td></tr>
+          <tr><td>DM Purchases</td><td>Production needs + Desired EI material − Beginning material = Material to buy</td></tr>
+        </table>
+        </div>
+
+        <div class="rule-box">
+          <div class="rule-label">The chain rule</div>
+          <p>Ending inventory of one month is the beginning inventory of the next. The numbers don't change. Only the label does.</p>
+        </div>
+
+        <h3 class="h3">Cash collections lag</h3>
+        <p>If customers pay 65% in the month of sale and 35% the next month, build a grid. Each row is a source month. Each column is a collection month. Don't try to do it in your head.</p>
+
+        <div class="trap">
+          <div class="rule-label">The setup that prevents most errors</div>
+          <p>Always lay out cash flow as a grid, never as a single calculation. Source month down the side. Collection month across the top. Same pattern works for cash disbursements.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- CH 6: VARIABLE vs ABSORPTION -->
+  <article class="chapter reveal" id="ch6">
+    <div class="chapter-header">
+      <div>
+        <div class="chapter-num-label">Chapter</div>
+        <div class="chapter-num-big">06</div>
+      </div>
+      <div>
+        <h2 class="chapter-title">Variable vs absorption</h2>
+        <p class="chapter-deck">Two methods that treat fixed manufacturing overhead differently. The difference shows up in operating income whenever production doesn't equal sales.</p>
+      </div>
+    </div>
+
+    <div class="chapter-body">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">In Practice</div>
+          <div class="sidebar-content">Specialist territory. Important for accountants and CFOs. Useful to recognize, less useful to compute by hand.</div>
+        </div>
+      </aside>
+
+      <div class="body-content">
+        <p class="lede">The only difference between absorption and variable costing is how they treat fixed manufacturing overhead. Absorption puts it in inventory. Variable expenses it immediately.</p>
+
+        <div class="table-wrap">
+        <table>
+          <tr><th></th><th>Absorption</th><th>Variable</th></tr>
+          <tr><td>Fixed MOH</td><td>Product cost (in inventory until sold)</td><td>Period cost (expensed now)</td></tr>
+          <tr><td>DM, DL, VMOH</td><td>Product cost</td><td>Product cost</td></tr>
+          <tr><td>Selling/Admin</td><td>Period cost</td><td>Period cost</td></tr>
+          <tr><td>Required for GAAP?</td><td>Yes</td><td>No (internal use)</td></tr>
+        </table>
+        </div>
+
+        <h3 class="h3">The reconciliation rule</h3>
+        <div class="table-wrap">
+        <table>
+          <tr><th>Scenario</th><th>Income comparison</th></tr>
+          <tr><td>Production &gt; Sales (inventory builds)</td><td>Absorption &gt; Variable (FMOH stays in inventory)</td></tr>
+          <tr><td>Production = Sales</td><td>Absorption = Variable</td></tr>
+          <tr><td>Production &lt; Sales (inventory shrinks)</td><td>Absorption &lt; Variable (last period's FMOH hits COGS)</td></tr>
+        </table>
+        </div>
+
+        <div class="formula">
+          <div class="formula-label">Reconciliation formula</div>
+          <div class="formula-eq">Absorption Income − Variable Income = (Δ inventory units) × FMOH per unit</div>
+        </div>
+
+        <div class="rule-box">
+          <div class="rule-label">The mental model</div>
+          <p>Absorption follows the units. If units stay in inventory, so does FMOH. If units leave (sold), so does FMOH.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- CH 2 & 3: JOB-ORDER -->
+  <article class="chapter reveal" id="ch23">
+    <div class="chapter-header">
+      <div>
+        <div class="chapter-num-label">Chapters</div>
+        <div class="chapter-num-big">2 · 3</div>
+      </div>
+      <div>
+        <h2 class="chapter-title">Job-order costing</h2>
+        <p class="chapter-deck">How manufacturing companies attach overhead to specific jobs and trace costs through three inventory accounts. Useful framework, narrower application.</p>
+      </div>
+    </div>
+
+    <div class="chapter-body">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">In Practice</div>
+          <div class="sidebar-content">Manufacturing, custom construction, professional services billing. The flow concept (RM → WIP → FG → COGS) shows up anywhere goods move through stages.</div>
+        </div>
+      </aside>
+
+      <div class="body-content">
+        <p class="lede">Manufacturing overhead can't be traced to a specific job, so we estimate it and apply it using a predetermined rate. Then everything flows through three inventory accounts on its way to the income statement.</p>
+
+        <h3 class="h3">The predetermined overhead rate</h3>
+        <div class="formula">
+          <div class="formula-label">POHR — set once at the start of the year</div>
+          <div class="formula-eq">POHR = Estimated Total Overhead ÷ Estimated Allocation Base</div>
+        </div>
+
+        <p>Both numbers are estimates set at the start of the year. The allocation base is whatever the problem gives. Usually direct labor hours, direct labor cost, or machine hours.</p>
+
+        <div class="formula">
+          <div class="formula-label">Apply OH to a specific job</div>
+          <div class="formula-eq">Applied OH = POHR × Actual allocation base for the job</div>
+        </div>
+
+        <p>Estimates make the rate. Actuals apply the rate.</p>
+
+        <h3 class="h3">Over- and under-applied overhead</h3>
+        <div class="formula">
+          <div class="formula-eq">Actual MOH − Total Applied MOH = Over/Under-applied amount</div>
+        </div>
+
+        <div class="table-wrap">
+        <table>
+          <tr><th>Result</th><th>Meaning</th><th>Year-end fix</th></tr>
+          <tr><td>Actual &gt; Applied</td><td>Under-applied (didn't charge enough)</td><td>Increase COGS</td></tr>
+          <tr><td>Actual &lt; Applied</td><td>Over-applied (charged too much)</td><td>Decrease COGS</td></tr>
+        </table>
+        </div>
+
+        <h3 class="h3">The cost flow</h3>
+        <p>Costs move through three inventory accounts in sequence. Each step uses the same logic: beginning + added − ending = flowed out.</p>
+
+        <div class="formula">
+          <div class="formula-label">Direct materials used</div>
+          <div class="formula-eq">DM Used = Beg RM + RM Purchases − Ending RM − Indirect Materials</div>
+        </div>
+
+        <div class="formula">
+          <div class="formula-label">Cost of goods manufactured</div>
+          <div class="formula-eq">COGM = Beg WIP + (DM + DL + MOH applied) − Ending WIP</div>
+        </div>
+
+        <div class="formula">
+          <div class="formula-label">Cost of goods sold</div>
+          <div class="formula-eq">COGS = Beg FG + COGM − Ending FG</div>
+        </div>
+
+        <div class="rule-box">
+          <div class="rule-label">The pattern</div>
+          <p>Same logic, three different inventory accounts. Beginning + Added − Ending = Flowed Out. Once you see it once, you've seen it three times.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ETHICS -->
+  <article class="chapter reveal" id="ethics">
+    <div class="chapter-header">
+      <div>
+        <div class="chapter-num-label">Appendix</div>
+        <div class="chapter-num-big">A</div>
+      </div>
+      <div>
+        <h2 class="chapter-title">IMA ethics standards</h2>
+        <p class="chapter-deck">Four standards from the Institute of Management Accountants. Used as a reference for ethical conduct in the profession.</p>
+      </div>
+    </div>
+
+    <div class="chapter-body">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">In Practice</div>
+          <div class="sidebar-content">Cited in CMA exams, internal audit reviews, whistleblower policies. Recognizable across the accounting profession.</div>
+        </div>
+      </aside>
+
+      <div class="body-content">
+        <p class="lede">Three C's and an I.</p>
+
+        <div class="table-wrap">
+        <table>
+          <tr><th>Standard</th><th>Plain English</th><th>Keyword</th></tr>
+          <tr><td><strong>Competence</strong></td><td>Stay current. Keep skills and knowledge sharp.</td><td>training, expertise</td></tr>
+          <tr><td><strong>Confidentiality</strong></td><td>Don't disclose private info unless authorized.</td><td>secrets, sharing</td></tr>
+          <tr><td><strong>Integrity</strong></td><td>Avoid conflicts of interest and biased conduct.</td><td>conflict, ethical</td></tr>
+          <tr><td><strong>Credibility</strong></td><td>Communicate fairly and objectively.</td><td>fair, objective</td></tr>
+        </table>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- COLOPHON -->
+  <footer class="colophon reveal">
+    <div class="colophon-rule"></div>
+    <p>End</p>
+    <p>Set in Fraunces &amp; JetBrains Mono</p>
+    <div class="signature">a personal reference, kept against forgetting.</div>
+  </footer>
+
+</div>
+
+<script>
+  // Scroll progress bar
+  const progressBar = document.getElementById('progress');
+  function updateProgress() {
+    const scrolled = window.scrollY;
+    const height = document.documentElement.scrollHeight - window.innerHeight;
+    const percent = height > 0 ? Math.min(100, (scrolled / height) * 100) : 0;
+    progressBar.style.width = percent + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress, { passive: true });
+  updateProgress();
+
+  // Reveal-on-scroll using IntersectionObserver
+  const observerOptions = {
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
+  };
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
+    revealObserver.observe(el);
+  });
+</script>
+
+</body>
+</html>
